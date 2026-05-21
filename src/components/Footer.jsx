@@ -70,14 +70,14 @@ function Footer(){
         <div className="footer-socials">
 
           <a
-            href="https://github.com/SEUUSUARIO"
+            href="https://github.com/rafaelbarreto95"
             target="_blank"
           >
             <FaGithub />
           </a>
 
           <a
-            href="https://linkedin.com/in/SEUUSUARIO"
+            href="https://www.linkedin.com/in/rafael-barreto-silva/"
             target="_blank"
           >
             <FaLinkedin />

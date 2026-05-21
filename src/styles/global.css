@@ -103,6 +103,8 @@ section {
     padding-block: var(--section-spacing);
 
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
 }
 
 .hero {
@@ -138,7 +140,7 @@ section {
 
     border-radius: 50%;
 
-    filter: blur(180px);
+    filter: blur(80px);
 
     opacity: .12;
 
@@ -158,7 +160,7 @@ section {
             rgba(56, 189, 248, .18),
             transparent 70%);
 
-    filter: blur(120px);
+    filter: blur(50px);
 
     z-index: 1;
 }
@@ -1928,9 +1930,8 @@ nav a:hover::after {
 
 .chapter-image img {
     width: 100%;
-
-    height: 650px;
-
+    height: auto;
+    max-height: 650px;
     object-fit: cover;
 
     transition: .8s;
@@ -2751,4 +2752,66 @@ canvas {
 .footer {
     transform: translateZ(0);
     backface-visibility: hidden;
+}
+
+@media (max-width: 768px) {
+
+    .hero,
+    .character,
+    .gameplay,
+    .temple,
+    .story,
+    .fatality,
+    .chapter,
+    .power-card,
+    .ui-card,
+    .fighter-stat {
+
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .fog,
+    .light-ray,
+    .gradient-orb,
+    .hero-glow,
+    .footer-glow,
+    .freeze-effect {
+
+        display: none !important;
+    }
+
+    .frost-overlay,
+    .scanlines,
+    .footer-grid,
+    .footer-particles {
+
+        opacity: .15;
+    }
+
+    .fatality-video {
+
+        display: none;
+    }
+
+    .cinematic-top,
+    .cinematic-bottom {
+
+        display: none;
+    }
+
+}
+
+@media (max-width:768px) {
+
+    .ui-card,
+    .power-card,
+    .fighter-stat,
+    .temple-card,
+    .character-right,
+    .footer-terminal {
+
+        backdrop-filter: none !important;
+    }
+
 }
