@@ -73,7 +73,7 @@ function StoryMode(){
 
           <div className="chapter-image">
 
-            <img src="/images/chapter1.jpg" />
+            <img src={`${import.meta.env.BASE_URL}images/chapter1.jpg`} />
 
           </div>
 
@@ -112,7 +112,7 @@ function StoryMode(){
 
           <div className="chapter-image">
 
-            <img src="/images/chapter2.png" />
+            <img src={`${import.meta.env.BASE_URL}images/chapter2.jpg`} />
 
           </div>
 
@@ -151,7 +151,7 @@ function StoryMode(){
 
           <div className="chapter-image">
 
-            <img src="/images/chapter3.jpg" />
+            <img src={`${import.meta.env.BASE_URL}images/chapter3.jpg`} />
 
           </div>
 
@@ -188,7 +188,7 @@ function StoryMode(){
 
           <div className="chapter-image">
 
-            <img src="/images/chapter4.jpg" />
+            <img src={`${import.meta.env.BASE_URL}images/chapter4.jpg`} />
 
           </div>
 

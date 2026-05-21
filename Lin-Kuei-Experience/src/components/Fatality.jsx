@@ -44,7 +44,7 @@ function Fatality(){
       >
 
         <source
-          src="/videos/fatality.mp4"
+          src={`${import.meta.env.BASE_URL}videos/fatality.mp4`}
           type="video/mp4"
         />
 

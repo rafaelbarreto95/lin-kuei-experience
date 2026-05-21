@@ -4,17 +4,17 @@ const skins = [
 
   {
     name:'CLASSIC',
-    image:'/images/subzero-classic.png'
+    image:`${import.meta.env.BASE_URL}images/subzero-classic.png`
   },
 
   {
     name:'MKX',
-    image:'/images/subzero-mkx.png'
+    image:`${import.meta.env.BASE_URL}images/subzero-mkx.png`
   },
 
   {
     name:'MK11',
-    image:'/images/subzero-mk11.png'
+    image:`${import.meta.env.BASE_URL}images/subzero-mk11.png`
   }
 
 ]
