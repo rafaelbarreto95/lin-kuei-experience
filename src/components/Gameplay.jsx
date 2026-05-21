@@ -50,7 +50,7 @@ function Gameplay(){
         <div className="gameplay-video">
 
           <img
-            src="./public/images/gameplay.jpg"
+            src={`${import.meta.env.BASE_URL}images/gameplay.jpg`}
             alt="Gameplay"
           />
 

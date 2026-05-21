@@ -112,7 +112,7 @@ function StoryMode(){
 
           <div className="chapter-image">
 
-            <img src={`${import.meta.env.BASE_URL}images/chapter2.jpg`} />
+            <img src={`${import.meta.env.BASE_URL}images/chapter2.png`} />
 
           </div>
 

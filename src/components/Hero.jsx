@@ -154,7 +154,7 @@ function Hero() {
       </div>
 
       <img
-        src="/images/subzero.png"
+        src={`${import.meta.env.BASE_URL}images/subzero.png`}
         alt="Sub-Zero"
         className="
         subzero-image
