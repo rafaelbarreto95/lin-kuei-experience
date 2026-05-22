@@ -41,6 +41,7 @@ function Fatality(){
         muted
         loop
         playsInline
+       preload="metadata"
       >
 
         <source
