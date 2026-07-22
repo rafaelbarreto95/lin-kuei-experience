@@ -4,17 +4,17 @@ const skins = [
 
   {
     name:'CLASSIC',
-    image:`${import.meta.env.BASE_URL}images/subzero-classic.png`
+    image:`${import.meta.env.BASE_URL}images/subzero-classic.webp`
   },
 
   {
     name:'MKX',
-    image:`${import.meta.env.BASE_URL}images/subzero-mkx.png`
+    image:`${import.meta.env.BASE_URL}images/subzero-mkx.webp`
   },
 
   {
     name:'MK11',
-    image:`${import.meta.env.BASE_URL}images/subzero-mk11.png`
+    image:`${import.meta.env.BASE_URL}images/subzero-mk11.webp`
   }
 
 ]
@@ -113,6 +113,14 @@ function CharacterSelect(){
               }`}
               onClick={() => setSelected(skin)}
             >
+
+              <img
+                src={skin.image}
+                alt=""
+                className="skin-thumb"
+                loading="lazy"
+                decoding="async"
+              />
 
               {skin.name}
 

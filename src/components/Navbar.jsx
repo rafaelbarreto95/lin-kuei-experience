@@ -1,8 +1,21 @@
 import { useEffect, useState } from 'react'
+import { FaBars, FaTimes } from 'react-icons/fa'
+
+const LINKS = [
+  { href: '#home', label: 'Home' },
+  { href: '#character', label: 'Character Selection' },
+  { href: '#powers', label: 'Powers' },
+  { href: '#gameplay', label: 'Skills' },
+  { href: '#story', label: 'Story' },
+  { href: '#temple', label: 'Temple' },
+  { href: '#fatality', label: 'Fatality' },
+  { href: '#footer', label: 'Footer' },
+]
 
 function Navbar() {
 
   const [active, setActive] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
 
@@ -27,6 +40,19 @@ function Navbar() {
 
   }, [])
 
+  // Lock body scroll while the fullscreen mobile menu is open
+  useEffect(() => {
+
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+
+  }, [menuOpen])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
 
     <header
@@ -43,39 +69,43 @@ function Navbar() {
 
       <nav>
 
-        <a href="#home">
-          Home
-        </a>
-
-        <a href="#character">
-          Character Selection
-        </a>
-
-        <a href="#powers">
-          Powers
-        </a>
-
-        <a href="#gameplay">
-          Skills
-        </a>
-
-        <a href="#story">
-          Story
-        </a>
-
-        <a href="#temple">
-          Temple
-        </a>
-
-        <a href="#fatality">
-          Fatality
-        </a>
-
-        <a href="#footer">
-          Footer
-        </a>
+        {LINKS.map((link) => (
+          <a key={link.href} href={link.href}>
+            {link.label}
+          </a>
+        ))}
 
       </nav>
+
+      <button
+        type="button"
+        className="menu-button"
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      <div
+        className={
+          menuOpen
+            ? 'fullscreen-menu active'
+            : 'fullscreen-menu'
+        }
+      >
+
+        <nav className="fullscreen-nav">
+
+          {LINKS.map((link) => (
+            <a key={link.href} href={link.href} onClick={closeMenu}>
+              {link.label}
+            </a>
+          ))}
+
+        </nav>
+
+      </div>
 
     </header>
   )
