@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 /* =============================================================
    RESET
@@ -36,6 +36,10 @@
     --card-title: clamp(1.2rem, 2vw, 2rem);
     --body-text: clamp(.95rem, 1vw, 1.1rem);
 
+    /* Fonts */
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+
     /* Colors */
     --primary: #38bdf8;
     --primary-strong: #0ea5e9;
@@ -44,6 +48,11 @@
     --text-muted: #64748b;
     --bg-dark: #020617;
     --bg-black: #000;
+
+    /* Danger / ember — reserved for the "kill" moments (Fatality, Finish Him)
+       so the cyan glow used everywhere else actually reads as special */
+    --danger: #ef4444;
+    --danger-strong: #f97316;
 
     /* Effects */
     --glass: rgba(255, 255, 255, .05);
@@ -69,12 +78,34 @@ body {
         radial-gradient(circle at top, rgba(14, 165, 233, .12), transparent 35%),
         linear-gradient(to bottom, #020617, #000);
     color: white;
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 500;
     position: relative;
     overflow-x: hidden;
     max-width: 100vw;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Orbitron stays reserved for headings, labels and UI chrome — it's a
+   display face, too geometric/wide for comfortable long-form reading */
+h1,
+h2,
+h3,
+button,
+nav a,
+.logo,
+.fullscreen-nav a,
+.subtitle,
+.footer-subtitle,
+.character-left>span,
+.temple-content>span,
+.gameplay-header>span,
+.story-top>span,
+.chapter-content>span,
+.fatality-content>span {
+    font-family: var(--font-display);
 }
 
 section {
@@ -201,9 +232,17 @@ button:first-child {
 }
 
 @keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 /* =============================================================
@@ -211,7 +250,6 @@ button:first-child {
 ============================================================= */
 
 .powers {
-    min-height: 100vh;
     padding-block: var(--section-spacing);
     width: var(--container);
     margin: auto;
@@ -234,14 +272,18 @@ button:first-child {
 }
 
 .power-card {
-    height: 250px;
+    min-height: 280px;
     background: rgba(255, 255, 255, .05);
     border: 1px solid rgba(255, 255, 255, .1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
+    padding: 40px 30px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    gap: 18px;
     transition: .4s;
     position: relative;
     overflow: hidden;
@@ -266,10 +308,54 @@ button:first-child {
     box-shadow: 0 0 30px rgba(56, 189, 248, .3);
 }
 
+.power-icon {
+    position: relative;
+    z-index: 2;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 1.7rem;
+    color: #7dd3fc;
+    background: rgba(56, 189, 248, .1);
+    border: 1px solid rgba(56, 189, 248, .25);
+}
+
 .power-card h3 {
     position: relative;
     z-index: 2;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.power-card p {
+    position: relative;
+    z-index: 2;
+    color: var(--text-soft);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Fatality stands apart from the ice-themed abilities — it's the kill move */
+.power-card--danger::before {
+    background: linear-gradient(135deg, transparent, rgba(239, 68, 68, .15), transparent);
+}
+
+.power-card--danger:hover {
+    border-color: var(--danger);
+    box-shadow: 0 0 30px rgba(239, 68, 68, .35);
+}
+
+.power-card--danger .power-icon {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, .12);
+    border-color: rgba(239, 68, 68, .3);
+}
+
+.power-card--danger h3 {
+    color: #fca5a5;
 }
 
 /* =============================================================
@@ -463,12 +549,35 @@ nav a:hover::after {
     text-align: center;
 }
 
+.fatality-content span {
+    color: var(--danger-strong);
+    letter-spacing: 6px;
+    font-size: .85rem;
+}
+
+.fatality-content h2 {
+    margin-top: 20px;
+    font-size: var(--section-title);
+    color: var(--danger);
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 10px var(--danger),
+        0 0 30px var(--danger-strong),
+        0 0 70px rgba(239, 68, 68, .6);
+}
+
+.fatality-content p {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--text-soft);
+}
+
 /* =============================================================
    GAMEPLAY
 ============================================================= */
 
 .gameplay {
-    min-height: 100vh;
     padding-block: var(--section-spacing);
     width: var(--container);
     margin: auto;
@@ -666,14 +775,21 @@ nav a:hover::after {
 .temple-card {
     padding: 30px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, .05);
-    border: 1px solid rgba(255, 255, 255, .08);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid rgba(255, 255, 255, .06);
+    backdrop-filter: blur(6px);
+    transition: border-color .4s;
+}
+
+.temple-card:hover {
+    border-color: rgba(255, 255, 255, .18);
 }
 
 .temple-card h3 {
-    color: #7dd3fc;
+    color: var(--text-soft);
     margin-bottom: 10px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
 }
 
 /* =============================================================
@@ -739,7 +855,10 @@ nav a:hover::after {
     padding: 30px;
     border-radius: 25px;
     background: rgba(255, 255, 255, .05);
-    border: 1px solid rgba(255, 255, 255, .08);
+    border-left: 2px solid rgba(56, 189, 248, .4);
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    border-right: 1px solid rgba(255, 255, 255, .08);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
     backdrop-filter: blur(10px);
 }
 
@@ -755,12 +874,27 @@ nav a:hover::after {
 }
 
 .skin-button {
-    padding: 18px;
+    padding: 12px;
     border: 1px solid rgba(255, 255, 255, .08);
     background: rgba(255, 255, 255, .05);
     color: white;
     cursor: pointer;
     transition: .4s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.skin-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(1) brightness(.7);
+    transition: .4s;
+    flex-shrink: 0;
 }
 
 .skin-button:hover {
@@ -768,9 +902,17 @@ nav a:hover::after {
     border-color: #38bdf8;
 }
 
+.skin-button:hover .skin-thumb {
+    filter: grayscale(.4) brightness(.9);
+}
+
 .skin-button.active {
     background: #0ea5e9;
     box-shadow: 0 0 20px rgba(56, 189, 248, .5);
+}
+
+.skin-button.active .skin-thumb {
+    filter: none;
 }
 
 /* =============================================================
@@ -850,21 +992,45 @@ nav a:hover::after {
 }
 
 @keyframes fogMove {
-    0% { transform: translateX(0) translateY(0); }
-    50% { transform: translateX(40px) translateY(-30px); }
-    100% { transform: translateX(0) translateY(0); }
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+
+    50% {
+        transform: translateX(40px) translateY(-30px);
+    }
+
+    100% {
+        transform: translateX(0) translateY(0);
+    }
 }
 
 @keyframes rayMove {
-    0% { transform: rotate(25deg) translateY(0); }
-    50% { transform: rotate(25deg) translateY(-40px); }
-    100% { transform: rotate(25deg) translateY(0); }
+    0% {
+        transform: rotate(25deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(25deg) translateY(-40px);
+    }
+
+    100% {
+        transform: rotate(25deg) translateY(0);
+    }
 }
 
 @keyframes orbFloat {
-    0% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-30px) scale(1.08); }
-    100% { transform: translateY(0) scale(1); }
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-30px) scale(1.08);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* =============================================================
@@ -1015,8 +1181,13 @@ nav a:hover::after {
 }
 
 @keyframes particlesMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(-120px); }
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-120px);
+    }
 }
 
 .footer-content {
@@ -1045,9 +1216,17 @@ nav a:hover::after {
 }
 
 @keyframes logoPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .footer-subtitle {
@@ -1095,8 +1274,15 @@ nav a:hover::after {
 }
 
 @keyframes terminalBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .55; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .55;
+    }
 }
 
 .footer-socials {
@@ -1167,7 +1353,7 @@ nav a:hover::after {
 .finish-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgba(120, 0, 0, .12), rgba(0, 0, 0, .95));
+    background: radial-gradient(circle, rgba(239, 68, 68, .18), rgba(0, 0, 0, .95));
     z-index: 1;
 }
 
@@ -1176,27 +1362,55 @@ nav a:hover::after {
     z-index: 5;
     font-size: 10rem;
     font-weight: 900;
-    color: #7dd3fc;
+    color: #fca5a5;
     text-align: center;
     letter-spacing: 12px;
     text-transform: uppercase;
-    text-shadow: 0 0 10px #38bdf8, 0 0 30px #38bdf8, 0 0 80px #0ea5e9;
+    text-shadow:
+        0 0 10px var(--danger),
+        0 0 30px var(--danger),
+        0 0 90px var(--danger-strong);
     animation: finishGlitch .15s infinite, finishZoom 3s ease infinite;
 }
 
 @keyframes finishGlitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
 }
 
 @keyframes finishZoom {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* =============================================================
