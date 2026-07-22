@@ -50,8 +50,10 @@ function Gameplay(){
         <div className="gameplay-video">
 
           <img
-            src={`${import.meta.env.BASE_URL}images/gameplay.jpg`}
+            src={`${import.meta.env.BASE_URL}images/gameplay.webp`}
             alt="Gameplay"
+            loading="lazy"
+            decoding="async"
           />
 
           <div className="scanlines"></div>

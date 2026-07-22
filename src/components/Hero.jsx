@@ -38,7 +38,30 @@ function Hero() {
       }
     )
 
-    // PARALLAX
+    // PARALLAX (skip on touch devices — there's no mousemove there anyway,
+    // and it avoids doing pointless setup work on mobile)
+
+    const isTouchDevice =
+      window.matchMedia('(pointer: coarse)').matches
+
+    if(isTouchDevice){
+      return
+    }
+
+    // quickTo reuses a single tween per target instead of creating a new
+    // gsap.to() tween on every mousemove event (which fires dozens of
+    // times per second)
+    const moveImage = gsap.quickTo(image, 'x', { duration: 1 })
+    const moveImageY = gsap.quickTo(image, 'y', { duration: 1 })
+
+    const moveTitle = gsap.quickTo(title, 'x', { duration: 1 })
+    const moveTitleY = gsap.quickTo(title, 'y', { duration: 1 })
+
+    const moveDescription = gsap.quickTo(description, 'x', { duration: 1 })
+    const moveDescriptionY = gsap.quickTo(description, 'y', { duration: 1 })
+
+    const moveGlow = gsap.quickTo(glow, 'x', { duration: 1.5 })
+    const moveGlowY = gsap.quickTo(glow, 'y', { duration: 1.5 })
 
     const handleMove = (e) => {
 
@@ -50,29 +73,17 @@ function Hero() {
         (window.innerHeight / 2 - e.clientY)
         / 25
 
-      gsap.to(image, {
-        x: -x,
-        y: -y,
-        duration: 1
-      })
+      moveImage(-x)
+      moveImageY(-y)
 
-      gsap.to(title, {
-        x: x * 0.5,
-        y: y * 0.5,
-        duration: 1
-      })
+      moveTitle(x * 0.5)
+      moveTitleY(y * 0.5)
 
-      gsap.to(description, {
-        x: x * 0.3,
-        y: y * 0.3,
-        duration: 1
-      })
+      moveDescription(x * 0.3)
+      moveDescriptionY(y * 0.3)
 
-      gsap.to(glow, {
-        x: x * 1.2,
-        y: y * 1.2,
-        duration: 1.5
-      })
+      moveGlow(x * 1.2)
+      moveGlowY(y * 1.2)
 
     }
 
@@ -154,7 +165,7 @@ function Hero() {
       </div>
 
       <img
-        src={`${import.meta.env.BASE_URL}images/subzero.png`}
+        src={`${import.meta.env.BASE_URL}images/subzero.webp`}
         alt="Sub-Zero"
         className="
         subzero-image

@@ -7,12 +7,18 @@ function Snow() {
     const canvas = document.getElementById('snow')
     const ctx = canvas.getContext('2d')
 
+    const prefersReducedMotion =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const flakeCount =
+      window.innerWidth < 768 ? 50 : 120
+
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
     const snowflakes = []
 
-    for(let i = 0; i < 120; i++){
+    for(let i = 0; i < flakeCount; i++){
 
       snowflakes.push({
         x: Math.random() * canvas.width,
@@ -23,11 +29,14 @@ function Snow() {
 
     }
 
+    let animationId = null
+    let isPaused = false
+
     function animate(){
 
       ctx.clearRect(0,0,canvas.width,canvas.height)
 
-ctx.fillStyle = 'rgba(255,255,255,0.7)'
+      ctx.fillStyle = 'rgba(255,255,255,0.7)'
 
       snowflakes.forEach((flake) => {
 
@@ -51,10 +60,50 @@ ctx.fillStyle = 'rgba(255,255,255,0.7)'
 
       })
 
-      requestAnimationFrame(animate)
+      if(!isPaused){
+        animationId = requestAnimationFrame(animate)
+      }
     }
 
-    animate()
+    if(prefersReducedMotion){
+      ctx.clearRect(0,0,canvas.width,canvas.height)
+      ctx.fillStyle = 'rgba(255,255,255,0.7)'
+      snowflakes.forEach((flake) => {
+        ctx.beginPath()
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2)
+        ctx.fill()
+      })
+    } else {
+      animate()
+    }
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+
+    const handleVisibility = () => {
+      isPaused = document.hidden
+      if(!isPaused && !prefersReducedMotion && animationId === null){
+        animate()
+      }
+    }
+
+    window.addEventListener('resize', resize)
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    return () => {
+
+      isPaused = true
+
+      if(animationId !== null){
+        cancelAnimationFrame(animationId)
+      }
+
+      window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', handleVisibility)
+
+    }
 
   }, [])
 

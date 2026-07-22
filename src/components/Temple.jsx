@@ -39,9 +39,11 @@ function Temple(){
       <div className="temple-overlay"></div>
 
       <img
-        src="/images/temple.jpg"
+        src={`${import.meta.env.BASE_URL}images/temple.webp`}
         alt="Lin Kuei Temple"
         className="temple-bg"
+        loading="lazy"
+        decoding="async"
       />
 
       <div className="temple-content">
